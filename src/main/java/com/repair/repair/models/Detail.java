@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "zapchast")
-public class Zapchast {
+@Table(name = "detail")
+public class Detail {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "component_id")

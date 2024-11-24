@@ -32,10 +32,10 @@ public class MainController {
     return ResponseEntity.ok("Client created");
   }
 
-  @PostMapping("/create/component")
-  public ResponseEntity<String> createComponent(@RequestBody Zapchast zapchast) {
-    dataAccessLayer.createComponent(zapchast);
-    return ResponseEntity.ok("Component created");
+  @PostMapping("/create/detail")
+  public ResponseEntity<String> createDetail(@RequestBody Detail detail) {
+    dataAccessLayer.createDetail(detail);
+    return ResponseEntity.ok("Detail created");
   }
 
   @PostMapping("/create/employee")

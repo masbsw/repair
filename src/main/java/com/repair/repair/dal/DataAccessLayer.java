@@ -37,10 +37,10 @@ public class DataAccessLayer {
     }
   }
 
-  public void createComponent(Zapchast newZapchast) {
+  public void createDetail(Detail newDetail) {
     session = sessionFactory.openSession();
     session.beginTransaction();
-    session.persist(newZapchast);
+    session.persist(newDetail);
     session.getTransaction().commit();
     if (session != null) {
       session.close();
