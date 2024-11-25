@@ -9,17 +9,17 @@ import lombok.Data;
 public class Detail {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  @Column(name = "component_id")
-  private Long componentId;
-  @Column(name = "component_name")
-  private String componentName;
-  @Column(name = "component_brand")
-  private String componentBrand;
-  @Column(name = "component_model")
-  private String componentModel;
-  @Column(name = "component_price")
-  private float componentPrice;
-  @Column(name = "component_quantity")
-  private int componentQuantity;
+  @Column(name = "detail_id")
+  private Long detailId;
+  @Column(name = "detail_name")
+  private String detailName;
+  @Column(name = "detail_brand")
+  private String detailBrand;
+  @Column(name = "detail_model")
+  private String detailModel;
+  @Column(name = "detail_price")
+  private float detailPrice;
+  @Column(name = "detail_quantity")
+  private int detailQuantity;
 
 }

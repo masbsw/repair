@@ -30,8 +30,8 @@ public class Subtask {
   private Task task;
 
   @ManyToOne
-  @JoinColumn(name = "component_id")
-  private Zapchast zapchast;
+  @JoinColumn(name = "detail_id")
+  private Detail detail;
 
   @ManyToOne
   @JoinColumn(name = "service_id")

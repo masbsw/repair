@@ -5,10 +5,7 @@ import com.repair.repair.models.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/unautorized")
@@ -19,6 +16,8 @@ public class MainController {
   public MainController(DataAccessLayer dataAccessLayer) {
     this.dataAccessLayer = dataAccessLayer;
   }
+
+  //Create
 
   @PostMapping("/create/application")
   public ResponseEntity<String> createApplication(@RequestBody Application application) {
@@ -67,4 +66,146 @@ public class MainController {
     dataAccessLayer.createTask(task);
     return ResponseEntity.ok("Task created");
   }
+
+  //Delete
+
+  @DeleteMapping("/delete/application/{id}")
+  public ResponseEntity<String> deleteApplicationById(@PathVariable("id") long id){
+    dataAccessLayer.deleteApplicationById(id);
+    return  ResponseEntity.ok("Application deleted");
+  }
+
+  @DeleteMapping("/delete/client/{id}")
+  public ResponseEntity<String> deleteClientById(@PathVariable("id") long id){
+    dataAccessLayer.deleteClientById(id);
+    return  ResponseEntity.ok("Client deleted");
+  }
+  @DeleteMapping("/delete/detail/{id}")
+  public ResponseEntity<String> deleteDetailById(@PathVariable("id") long id){
+    dataAccessLayer.deleteDetailById(id);
+    return  ResponseEntity.ok("Detail deleted");
+  }
+
+  @DeleteMapping("/delete/employee/{id}")
+  public ResponseEntity<String> deleteEmployeeById(@PathVariable("id") long id){
+    dataAccessLayer.deleteEmployeeById(id);
+    return  ResponseEntity.ok("Employee deleted");
+  }
+
+  @DeleteMapping("/delete/equipmentClient/{id}")
+  public ResponseEntity<String> deleteEquipmentClientById(@PathVariable("id") long id){
+    dataAccessLayer.deleteEquipmentClientById(id);
+    return  ResponseEntity.ok("Equipment client deleted");
+  }
+
+  @DeleteMapping("/delete/service/{id}")
+  public ResponseEntity<String> deleteServiceById(@PathVariable("id") long id){
+    dataAccessLayer.deleteServiceById(id);
+    return  ResponseEntity.ok("Service deleted");
+  }
+
+  @DeleteMapping("/delete/subtask/{id}")
+  public ResponseEntity<String> deleteSubtaskById(@PathVariable("id") long id){
+    dataAccessLayer.deleteSubtaskById(id);
+    return  ResponseEntity.ok("Subtask deleted");
+  }
+
+  @DeleteMapping("/delete/task/{id}")
+  public ResponseEntity<String> deleteTaskById(@PathVariable("id") long id){
+    dataAccessLayer.deleteTaskById(id);
+    return  ResponseEntity.ok("Task deleted");
+  }
+
+  //Get
+
+  @GetMapping("get/application/{id}")
+  public ResponseEntity<Application> getApplicationById(@PathVariable("id") long id){
+    Application application = dataAccessLayer.getApplicationById(id);
+    if(application == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(application);
+    }
+  }
+
+  @GetMapping("get/client/{id}")
+  public ResponseEntity<Client> getClientById(@PathVariable("id") long id){
+    Client client = dataAccessLayer.getClientById(id);
+    if(client == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(client);
+    }
+  }
+
+  @GetMapping("get/detail/{id}")
+  public ResponseEntity<Detail> getDetailById(@PathVariable("id") long id){
+    Detail detail = dataAccessLayer.getDetailById(id);
+    if(detail == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(detail);
+    }
+  }
+
+  @GetMapping("get/employee/{id}")
+  public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id){
+    Employee employee = dataAccessLayer.getEmployeeById(id);
+    if(employee == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(employee);
+    }
+  }
+
+  @GetMapping("get/equipmentClient/{id}")
+  public ResponseEntity<EquipmentClient> getEquipmentClientById(@PathVariable("id") long id){
+    EquipmentClient equipmentClient = dataAccessLayer.getEquipmentClientById(id);
+    if(equipmentClient == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(equipmentClient);
+    }
+  }
+
+  @GetMapping("get/service/{id}")
+  public ResponseEntity<Service> getServiceById(@PathVariable("id") long id){
+    Service service = dataAccessLayer.getServiceById(id);
+    if(service == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(service);
+    }
+  }
+
+  @GetMapping("get/subtask/{id}")
+  public ResponseEntity<Subtask> getSubtaskById(@PathVariable("id") long id){
+    Subtask subtask = dataAccessLayer.getSubtaskById(id);
+    if(subtask == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(subtask);
+    }
+  }
+
+  @GetMapping("get/task/{id}")
+  public ResponseEntity<Task> getTaskById(@PathVariable("id") long id){
+    Task task = dataAccessLayer.getTaskById(id);
+    if(task == null){
+      return ResponseEntity.notFound().build();
+    }
+    else {
+      return ResponseEntity.ok(task);
+    }
+  }
+
+
+
 }
