@@ -3,7 +3,9 @@ package com.repair.repair.dal;
 import com.repair.repair.models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -367,6 +369,82 @@ public class DataAccessLayer {
     service.setServicePrice(updateService.getServicePrice());
     session.merge(service);
     session.getTransaction().commit();
+  }
+  public void updateSubtask(long id, Subtask updateSubtask){
+    session =  sessionFactory.openSession();
+    session.beginTransaction();
+    Subtask subtask = session.get(Subtask.class, id);
+    subtask.setSubtaskDescription(updateSubtask.getSubtaskDescription());
+    subtask.setSubtaskStatus(updateSubtask.getSubtaskStatus());
+    subtask.setSubtaskDeadline(updateSubtask.getSubtaskDeadline());
+    session.merge(subtask);
+    session.getTransaction().commit();
+  }
+
+  public void updateTask(long id, Task updateTask){
+    session =  sessionFactory.openSession();
+    session.beginTransaction();
+    Task task = session.get(Task.class, id);
+    task.setTaskDateCreation(updateTask.getTaskDateCreation());
+    task.setTaskStatus(updateTask.getTaskStatus());
+    session.merge(task);
+    session.getTransaction().commit();
+  }
+
+//  public String newUserToDatabase(User user){
+//    session = sessionFactory.openSession();
+//    session.beginTransaction();
+//    String name = user.getUsername();
+//
+//    Query query = session
+//            .createQuery("FROM User where userName = :username")
+//            .setParameter("username", name);
+//    User userFrom(User) query.uniqueResult;
+//
+//    if (userFrom != null) {
+//      return "Выберите другое имя";
+//    }
+//    session.persist(user);
+//    session.getTransaction().commit();
+//    session.close();
+//    return "Done";
+//  }
+
+
+
+
+  //ЭТО ЧЕ????
+  public String newUserToDatabase(com.repair.repair.models.User user) {
+    Session session = null;
+    try {
+      session = sessionFactory.openSession();
+      session.beginTransaction();
+
+      String name = user.getUsername();
+
+      Query<User> query = session
+              .createQuery("FROM User WHERE username = :username", User.class)
+              .setParameter("username", name);
+
+      User userFromDb = query.uniqueResult();
+
+      if (userFromDb != null) {
+        return "Выберите другое имя";
+      }
+
+      session.persist(user);
+      session.getTransaction().commit();
+      return "Done";
+    } catch (Exception e) {
+      if (session != null && session.getTransaction() != null) {
+        session.getTransaction().rollback();
+      }
+      throw e;
+    } finally {
+      if (session != null) {
+        session.close();
+      }
+    }
   }
 
 

@@ -1,10 +1,13 @@
 package com.repair.repair.controller;
 
 import com.repair.repair.dal.DataAccessLayer;
+import com.repair.repair.dto.SignupRequest;
+import com.repair.repair.service.UserDetailsServiceImpl;
 import com.repair.repair.models.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class MainController {
   private final DataAccessLayer dataAccessLayer;
+  private UserDetailsServiceImpl userDetailsService;
+
+  @Autowired
+  public void RegistrationController(UserDetailsServiceImpl userDetailsService) {
+    this.userDetailsService = userDetailsService;
+  }
+
 
   public MainController(DataAccessLayer dataAccessLayer) {
     this.dataAccessLayer = dataAccessLayer;
@@ -205,6 +215,76 @@ public class MainController {
       return ResponseEntity.ok(task);
     }
   }
+
+
+  //Patch
+
+  @PatchMapping("/patch/application/{id}")
+  public ResponseEntity<String> updateApplication(@PathVariable("id") long id, @RequestBody Application updateApplication){
+    dataAccessLayer.updateApplication(id, updateApplication);
+    return ResponseEntity.ok("Update application");
+  }
+
+  @PatchMapping("/patch/client/{id}")
+  public ResponseEntity<String> updateClient(@PathVariable("id") long id, @RequestBody Client updateClient){
+    dataAccessLayer.updateClient(id, updateClient);
+    return ResponseEntity.ok("Update client");
+  }
+
+  @PatchMapping("/patch/detail/{id}")
+  public ResponseEntity<String> updateDetail(@PathVariable("id") long id, @RequestBody Detail updateDetail){
+    dataAccessLayer.updateDetail(id, updateDetail);
+    return ResponseEntity.ok("Update detail");
+  }
+
+  @PatchMapping("/patch/employee/{id}")
+  public ResponseEntity<String> updateEmployee(@PathVariable("id") long id, @RequestBody Employee updateEmployee){
+    dataAccessLayer.updateEmployee(id, updateEmployee);
+    return ResponseEntity.ok("Update employee");
+  }
+
+  @PatchMapping("/patch/equipmentClient/{id}")
+  public ResponseEntity<String> updateEquipmentClient(@PathVariable("id") long id, @RequestBody EquipmentClient updateEquipmentClient){
+    dataAccessLayer.updateEquipmentClient(id, updateEquipmentClient);
+    return ResponseEntity.ok("Update equipment client");
+  }
+
+  @PatchMapping("/patch/service/{id}")
+  public ResponseEntity<String> updateService(@PathVariable("id") long id, @RequestBody Service updateService){
+    dataAccessLayer.updateService(id, updateService);
+    return ResponseEntity.ok("Update service");
+  }
+
+  @PatchMapping("/patch/subtask/{id}")
+  public ResponseEntity<String> updateSubtask(@PathVariable("id") long id, @RequestBody Subtask updateSubtask){
+    dataAccessLayer.updateSubtask(id, updateSubtask);
+    return ResponseEntity.ok("Update subtask");
+  }
+
+  @PatchMapping("/patch/task/{id}")
+  public ResponseEntity<String> updateTask(@PathVariable("id") long id, @RequestBody Task updateTask){
+    dataAccessLayer.updateTask(id, updateTask);
+    return ResponseEntity.ok("Update task");
+  }
+
+  //говно
+
+  @GetMapping("/register")
+  public String showRegistrationForm(Model model){
+    model.addAttribute("userForm", new SignupRequest());
+    return "registration";
+  }
+
+  @PostMapping
+  public String registerUser(SignupRequest signupRequest) {
+    String result = userDetailsService.newUser(signupRequest);
+    if ("Done".equals(result)) {
+      return "redirect:/login";
+    } else {
+      return "registration";
+    }
+  }
+
 
 
 
