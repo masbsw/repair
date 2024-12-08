@@ -11,14 +11,12 @@ public class Client {
   @Id
   @Column(name = "client_id")
   private Long clientId;
-  @Column(name = "client_login")
-  private String clientLogin;
-  @Column(name = "client_password")
-  private String clientPassword;
-  @Column(name = "client_firstname")
-  private String clientFirstname;
-  @Column(name = "client_lastname")
-  private String clientLastname;
-  @Column(name = "client_middlename")
-  private String clientMiddlename;
+  @Column(name = "full_name")
+  private String fullName;
+  @Column(name = "phone_number")
+  private String phoneNumber;
+  @Column(name = "mail")
+  private String mail;
+  @Column(name = "password")
+  private String password;
 }

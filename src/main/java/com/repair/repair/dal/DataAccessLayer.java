@@ -294,7 +294,7 @@ public class DataAccessLayer {
     }
   }
 
-  //Patch
+//Patch
 
   public void updateApplication(long id, Application updateApplication){
     session = sessionFactory.openSession();
@@ -311,11 +311,10 @@ public class DataAccessLayer {
     session = sessionFactory.openSession();
     session.beginTransaction();
     Client client = session.get(Client.class, id);
-    client.setClientLogin(updateClient.getClientLogin());
-    client.setClientPassword(updateClient.getClientPassword());
-    client.setClientFirstname(updateClient.getClientFirstname());
-    client.setClientLastname(updateClient.getClientLastname());
-    client.setClientMiddlename(updateClient.getClientMiddlename());
+    client.setFullName(updateClient.getFullName());
+    client.setPhoneNumber(updateClient.getPhoneNumber());
+    client.setMail(updateClient.getMail());
+    client.setPassword(updateClient.getPassword());
     session.merge(client);
     session.getTransaction().commit();
   }
@@ -337,12 +336,11 @@ public class DataAccessLayer {
     session =  sessionFactory.openSession();
     session.beginTransaction();
     Employee employee = session.get(Employee.class, id);
-    employee.setEmployeeLogin(updateEmployee.getEmployeeLogin());
-    employee.setEmployeePassword(updateEmployee.getEmployeePassword());
-    employee.setEmployeeFirstname(updateEmployee.getEmployeeFirstname());
-    employee.setEmployeeLastname(updateEmployee.getEmployeeLastname());
-    employee.setEmployeeMiddlename(updateEmployee.getEmployeeMiddlename());
-    employee.setEmployeePost(updateEmployee.getEmployeePost());
+    employee.setFullName(updateEmployee.getFullName());
+    employee.setPhoneNumber(updateEmployee.getPhoneNumber());
+    employee.setMail(updateEmployee.getMail());
+    employee.setPassword(updateEmployee.getPassword());
+    employee.setPost(updateEmployee.getPost());
     session.merge(employee);
     session.getTransaction().commit();
   }
@@ -366,6 +364,27 @@ public class DataAccessLayer {
     service.setServiceDescription(updateService.getServiceDescription());
     service.setServicePrice(updateService.getServicePrice());
     session.merge(service);
+    session.getTransaction().commit();
+  }
+
+  public void updateSubtask(long id, Subtask updateSubtask){
+    session =  sessionFactory.openSession();
+    session.beginTransaction();
+    Subtask subtask = session.get(Subtask.class, id);
+    subtask.setSubtaskDescription(updateSubtask.getSubtaskDescription());
+    subtask.setSubtaskStatus(updateSubtask.getSubtaskStatus());
+    subtask.setSubtaskDeadline(updateSubtask.getSubtaskDeadline());
+    session.merge(subtask);
+    session.getTransaction().commit();
+  }
+
+  public void updateTask(long id, Task updateTask){
+    session =  sessionFactory.openSession();
+    session.beginTransaction();
+    Task task = session.get(Task.class, id);
+    task.setTaskDateCreation(updateTask.getTaskDateCreation());
+    task.setTaskStatus(updateTask.getTaskStatus());
+    session.merge(task);
     session.getTransaction().commit();
   }
 

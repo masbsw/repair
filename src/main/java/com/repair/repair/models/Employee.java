@@ -12,17 +12,15 @@ public class Employee {
   @Id
   @Column(name = "employee_id")
   private Long employeeId;
-  @Column(name = "employee_login")
-  private String employeeLogin;
-  @Column(name = "employee_password")
-  private String employeePassword;
-  @Column(name = "employee_firstname")
-  private String employeeFirstname;
-  @Column(name = "employee_lastname")
-  private String employeeLastname;
-  @Column(name = "employee_middlename")
-  private String employeeMiddlename;
-  @Column(name = "employee_post")
-  private String employeePost;
+  @Column(name = "full_name")
+  private String fullName;
+  @Column(name = "phone_number")
+  private String phoneNumber;
+  @Column(name = "mail")
+  private String mail;
+  @Column(name = "password")
+  private String password;
+  @Column(name ="post")
+  private String post;
 
 }
