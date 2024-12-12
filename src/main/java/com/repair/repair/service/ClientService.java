@@ -12,18 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientService implements UserDetailsService {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public void setClientRepository(ClientRepository clientRepository){
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-        Client client = clientRepository.findClientByMail(mail).orElseThrow(() -> new UsernameNotFoundException(
-                String.format("User '%s' not found", mail)
-        ));
+        Client client = clientRepository.findClientByMail(mail)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        String.format("User '%s' not found", mail)
+                ));
         return ClientDetailsImpl.build(client);
     }
 }
